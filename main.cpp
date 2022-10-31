@@ -89,11 +89,11 @@ int main(int argc, char* argv[])
     struct dirent *ep;
 
     string image2_dir;
-    image2_dir = directory + "/" + "image_2";
+    image2_dir = directory + "/" + "cam0";
     dp = opendir(image2_dir.c_str());
 
     string image3_dir;
-    image3_dir = directory + "/" + "image_3";
+    image3_dir = directory + "/" + "cam1";
     dp1 = opendir(image3_dir.c_str());
 
     if (dp == NULL || dp1 ==  NULL) {
@@ -130,8 +130,8 @@ int main(int argc, char* argv[])
             continue;  
 #endif
 
-        I0_path = directory + "/" + "image_2" + "/" + image_name;
-        I1_path = directory + "/" + "image_3" + "/" + image_name;
+        I0_path = directory + "/" + "cam0" + "/" + image_name;
+        I1_path = directory + "/" + "cam1" + "/" + image_name;
 
         cout<<"I0: "<<I0_path<<endl;
         cout<<"I1: "<<I1_path<<endl;
@@ -164,6 +164,7 @@ int main(int argc, char* argv[])
         std::cout << "disparity computation time: " << duration << "[msec]" << std::endl;
 
         D0.convertTo(draw, CV_8U, 255. / (SemiGlobalMatching::DISP_SCALE * param.numDisparities));
+
         cv::applyColorMap(draw, draw, cv::COLORMAP_JET);
         draw.setTo(0, D0 == SemiGlobalMatching::DISP_INV);
 
@@ -172,6 +173,8 @@ int main(int argc, char* argv[])
         Mat fdisp;
 
         D0.convertTo(fdisp, CV_32F, 1. / SemiGlobalMatching::DISP_SCALE);
+        std::string outputDisp = directory + "/" + "cam0_depth" + "/" + image_name;
+        cv::imwrite(outputDisp, fdisp * 255);
         //        Mat D0_16u(D0.size(), CV_16U);
 
         // calculate stixels

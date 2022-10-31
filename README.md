@@ -18,6 +18,10 @@ Make sure your are in the `build` folder to run the executables.
 
 ./stixel [dir] [camera param]
 
-dir should be compatible with Kitti dataset.   
+# dir should be compatible with Kitti dataset.   
 ./stixel ../data/ ../camera.xml
+```
 
+备注：
+- 内参单位是像素；   
+- 外参单位是 cm；   

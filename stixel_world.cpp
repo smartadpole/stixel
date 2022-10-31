@@ -86,6 +86,7 @@ class FreeSpace
 
         void compute(const cv::Mat1f& disparity, std::vector<float>& roadDisp, int vhor, std::vector<int>& path, std::vector<int>& oriPath, const CameraParameters& camera)
         {
+            vhor = std::max(0, vhor);
             const int umax = disparity.rows;
             const int vmax = disparity.cols;
 
